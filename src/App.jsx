@@ -5,18 +5,32 @@ import commentsFromServer from './api/comments.json';
 import usersFromServer from './api/users.json';
 import { PostList } from './components/PostList/PostList';
 
-function getCommetsById(userId) {
-  return commentsFromServer.filter(comment => comment.id === userId);
+// function getCommentsById(userId) {
+//   return commentsFromServer.filter(comment => comment.userId === userId);
+// }
+
+// function getUserById(commetId) {
+//   return usersFromServer.find(user => user.id === commetId) || null;
+// }
+
+// export const posts = postsFromServer.map(post => ({
+//   ...post,
+//   comments: getCommentsById(post.userId),
+//   user: getUserById(post.userId),
+// }));
+
+function getCommentsByPostId(postId) {
+  return commentsFromServer.filter(comment => comment.postId === postId);
 }
 
-function getUsersById(commetId) {
-  return usersFromServer.find(user => user.id === commetId) || null;
+function getUserById(userId) {
+  return usersFromServer.find(user => user.id === userId) || null;
 }
 
 export const posts = postsFromServer.map(post => ({
   ...post,
-  comments: getCommetsById(post.userId),
-  user: getUsersById(post.userId),
+  comments: getCommentsByPostId(post.id),
+  user: getUserById(post.userId),
 }));
 
 export const App = () => (
